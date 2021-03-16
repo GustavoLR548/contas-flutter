@@ -1,2 +1,2 @@
 # todo-flutter
-Um aplicativo flutter/dart para fazer 
+Um aplicativo flutter/dart para fazer uma listagem de todo

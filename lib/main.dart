@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/models/todo.dart';
-import 'package:todo/widget/todoBottomSheet.dart';
-import 'package:todo/widget/todoCard.dart';
-
-import 'provider/todos.dart';
+import 'package:todo/provider/auth.dart';
+import 'package:todo/provider/theme_changer.dart';
+import 'package:todo/screens/homepage.dart';
+import 'package:todo/screens/login_signup.dart';
+import 'package:todo/screens/splash_screen.dart';
+import 'provider/contas.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,49 +15,47 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: Todos(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: HomePage(),
+    return MultiProvider(providers: [
+      ChangeNotifierProvider.value(
+        value: ThemeChanger(),
       ),
-    );
+      ChangeNotifierProvider.value(
+        value: AuthProvider(),
+      ),
+      ChangeNotifierProxyProvider<AuthProvider, Contas>(
+        create: (ctx) => Contas(),
+        update: (ctx, authData, previousContas) =>
+            Contas.loggedIn(authData.token, authData.userId),
+      )
+    ], child: MyMaterialApp());
   }
 }
 
-class HomePage extends StatelessWidget {
-  _createTodo(BuildContext appCtx) {
-    showModalBottomSheet(
-        context: appCtx, builder: (modalBottomSheetCtx) => TodoBottomSheet());
-  }
+class MyMaterialApp extends StatelessWidget {
+  const MyMaterialApp({
+    Key key,
+  }) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
-    final allTodos = Provider.of<Todos>(context).items;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Todo'),
-      ),
-      body: allTodos.length == 0 ? _noTodos() : _showTodos(allTodos),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _createTodo(context),
-        child: Icon(Icons.add),
-      ),
-    );
-  }
+    final theme = Provider.of<ThemeChanger>(context);
 
-  _noTodos() {
-    return Center(child: Text('You have no \'Todo\', start adding some! :-'));
-  }
-
-  _showTodos(List<Todo> allTodos) {
-    return ListView.builder(
-      itemCount: allTodos.length,
-      itemBuilder: (ctx, index) =>
-          TodoCard(allTodos[index].targetTimeDay, allTodos[index].title),
+    return Consumer<AuthProvider>(
+      builder: (ctx, authData, _) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: theme.themeData,
+          home: authData.isAuth
+              ? HomePage()
+              : FutureBuilder(
+                  future: authData.tryAutoLogin(),
+                  builder: (ctx, authResult) =>
+                      authResult.connectionState == ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen(),
+                ),
+        );
+      },
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todo/provider/todos.dart';
+import 'package:todo/provider/contas.dart';
 import 'package:provider/provider.dart';
 
 class TodoBottomSheet extends StatefulWidget {
@@ -48,7 +48,7 @@ class _TodoBottomSheetState extends State<TodoBottomSheet> {
     } else {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
-        Provider.of<Todos>(context, listen: false).add(_formData['Title'],
+        Provider.of<Contas>(context, listen: false).add(_formData['Title'],
             _formData['Description'], _formData['targetTime']);
         Navigator.of(context).pop();
       }

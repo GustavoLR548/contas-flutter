@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/provider/theme_changer.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(String email, String password, String username,
-      bool isLogin, File imageFile, BuildContext ctx) _submitData;
+      bool isLogin, BuildContext ctx) _submitData;
 
   final bool _isLoading;
 
@@ -22,16 +21,10 @@ class _AuthFormState extends State<AuthForm> {
     'username': '',
     'password': '',
   };
-
-  File _userImageFile;
   var _isLogin = true;
 
   //Functions
-
-  void _storeUserImageFile(File image) {
-    _userImageFile = image;
-  }
-
+  //
   bool _isValidEmail(String email) {
     return RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -42,10 +35,8 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
-    if (!isValid || (_userImageFile == null && !_isLogin)) {
-      String errorMessageContent = _userImageFile == null && !_isLogin
-          ? 'Nenhum imagem foi provida'
-          : 'Credencias de usuário inválida';
+    if (!isValid && !_isLogin) {
+      String errorMessageContent = 'Credencias de usuário inválida';
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errorMessageContent),
         backgroundColor: Theme.of(context).errorColor,
@@ -59,7 +50,6 @@ class _AuthFormState extends State<AuthForm> {
         _formValues['password'].trim(),
         _formValues['username'].trim(),
         _isLogin,
-        _userImageFile,
         ctx);
   }
 

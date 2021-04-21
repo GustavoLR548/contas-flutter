@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo/models/conta.dart';
 import 'package:todo/provider/contas.dart';
-import 'package:todo/widget/todoBottomSheet.dart';
-import 'package:todo/widget/todoCard.dart';
+import 'package:todo/widget/contaEditor.dart';
+import 'package:todo/widget/homepage/contaCard.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
 
   _createTodo(BuildContext appCtx) {
     showModalBottomSheet(
-        context: appCtx, builder: (modalBottomSheetCtx) => TodoBottomSheet());
+        context: appCtx, builder: (modalBottomSheetCtx) => ContaEditor());
   }
 
   Widget build(BuildContext context) {
@@ -29,7 +29,8 @@ class HomePage extends StatelessWidget {
   }
 
   _noTodos() {
-    return Center(child: Text('You have no \'Todo\', start adding some! :-'));
+    return Center(
+        child: Text('Você não tem nenhuma conta\nAdicione alguma :-)'));
   }
 
   _showTodos(List<Conta> allTodos) {

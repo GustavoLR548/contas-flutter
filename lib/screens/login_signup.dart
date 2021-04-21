@@ -15,45 +15,40 @@ class _AuthScreenState extends State<AuthScreen> {
   var _isLoading = false;
 
   void _submitAuthForm(String email, String password, String username,
-      bool isLogin, File imageFile, BuildContext ctx) async {
-    try {
-      setState(() {
-        _isLoading = true;
-      });
-      if (isLogin) {
-        await Provider.of<AuthProvider>(context, listen: false)
-            .signIn(email, password);
-      } else {
-        await Provider.of<AuthProvider>(context, listen: false)
-            .signUp(username, email, password);
+      bool isLogin, BuildContext ctx) async {
+    bool result = false;
+
+    setState(() {
+      _isLoading = true;
+    });
+    if (isLogin) {
+      result = await Provider.of<AuthProvider>(context, listen: false)
+          .signIn(email, password);
+
+      if (!result) {
+        showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: Text('Um erro ocorreu ao fazer login'),
+                  content: Text('teste'),
+                ));
       }
-    } on PlatformException catch (error) {
-      var message = 'Um erro ocorreu, por favor olhe usas credenciais';
-      if (error.message != null) {
-        message = error.message;
+    } else {
+      result = await Provider.of<AuthProvider>(context, listen: false)
+          .signUp(username, email, password);
+
+      if (!result) {
+        showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: Text('Um erro ocorreu ao fazer registro'),
+                  content: Text('teste'),
+                ));
       }
-      showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-                title: Text('Um erro ocorreu'),
-                content: Text(message),
-              ));
-      setState(() {
-        _isLoading = false;
-      });
-    } catch (error) {
-      showDialog(
-          context: context,
-          builder: (ctx) => FittedBox(
-                child: AlertDialog(
-                  title: Text('Um erro ocorreu'),
-                  content: Text('A senha inserida está incorreta'),
-                ),
-              ));
-      setState(() {
-        _isLoading = false;
-      });
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override

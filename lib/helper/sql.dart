@@ -5,17 +5,20 @@ import 'package:sqflite/sqlite_api.dart';
 class SQLDatabase {
   static Future<Database> get database async {
     final dbPath = await sql.getDatabasesPath();
-    return sql.openDatabase(path.join(dbPath, 'rachac.db'),
+    return sql.openDatabase(path.join(dbPath, 'contas.db'),
         onCreate: (db, version) async {
-      await db.execute('CREATE TABLE user_rachac(' +
+      await db.execute('CREATE TABLE users(' +
           'id TEXT PRIMARY KEY,' +
+          'name TEXT,' +
+          'email TEXT' +
+          'password TEXT,');
+      await db.execute('CREATE TABLE contas(' +
+          'id TEXT PRIMARY KEY,' +
+          'creator_id TEXT' +
+          'target_time TEXT' +
           'title TEXT,' +
-          'fullPrice REAL,' +
-          'numberOfPeople INTEGER,' +
-          'waiterPercentage REAL,' +
-          'numberOfPeopleWhoDrink INTEGER,' +
-          'drinkPrice REAL,' +
-          'archived INTEGER)');
+          'description TEXT,' +
+          'icon INTEGER');
     }, version: 1);
   }
 

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProxyProvider<AuthProvider, Contas>(
         create: (ctx) => Contas(),
         update: (ctx, authData, previousContas) =>
-            Contas.loggedIn(authData.token, authData.userId),
+            Contas.loggedIn(authData.currUser.id),
       )
     ], child: MyMaterialApp());
   }

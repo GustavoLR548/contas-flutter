@@ -65,8 +65,8 @@ class _AuthFormState extends State<AuthForm> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
-      constraints: BoxConstraints(minHeight: _isLogin ? 360 : 530),
-      height: _isLogin ? 360 : 530,
+      constraints: BoxConstraints(minHeight: _isLogin ? 360 : 400),
+      height: _isLogin ? 360 : 400,
       child: Card(
         color: currTheme == ThemeType.light ? Colors.white : Colors.black45,
         margin: const EdgeInsets.only(bottom: 15, left: 25, right: 25),
@@ -78,12 +78,11 @@ class _AuthFormState extends State<AuthForm> {
             key: _formKey,
             child: ListView(
               children: [
-                if (_isLogin)
-                  Text(
-                    'Entrar',
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  ),
+                Text(
+                  _isLogin ? 'Entrar' : 'Registrar',
+                  style: Theme.of(context).textTheme.headline2,
+                  textAlign: TextAlign.center,
+                ),
                 TextFormField(
                   key: ValueKey('email'),
                   autocorrect: false,
@@ -94,7 +93,7 @@ class _AuthFormState extends State<AuthForm> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value.isEmpty || !_isValidEmail(value))
-                      return 'Please enter a valid email address';
+                      return 'Por favor, coloque um email válido';
                     return null;
                   },
                   onSaved: (value) {

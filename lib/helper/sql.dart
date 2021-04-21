@@ -8,23 +8,25 @@ class SQLDatabase {
     return sql.openDatabase(path.join(dbPath, 'contas.db'),
         onCreate: (db, version) async {
       await db.execute('CREATE TABLE users(' +
-          'id TEXT PRIMARY KEY,' +
+          'id INTEGER PRIMARY KEY,' +
           'name TEXT,' +
-          'email TEXT' +
-          'password TEXT,');
+          'email TEXT,' +
+          'password TEXT)');
+      version++;
       await db.execute('CREATE TABLE contas(' +
-          'id TEXT PRIMARY KEY,' +
-          'creator_id TEXT' +
-          'target_time TEXT' +
+          'id INTEGER PRIMARY KEY,' +
+          'creator_id INTEGER,' +
+          'target_time TEXT,' +
           'title TEXT,' +
           'description TEXT,' +
-          'icon INTEGER');
+          'icon INTEGER)');
     }, version: 1);
   }
 
-  static Future<void> insert(String table, Map<String, Object> data) async {
+  static Future<int> insert(String table, Map<String, Object> data) async {
     final sqlDb = await SQLDatabase.database;
-    sqlDb.insert(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
+    return await sqlDb.insert(table, data,
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   static Future<List<Map<String, dynamic>>> read(String table) async {

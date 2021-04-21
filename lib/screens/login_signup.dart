@@ -97,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ],
                       ),
                       child: Text(
-                        'Educa',
+                        'Contas',
                         style: Theme.of(context)
                             .textTheme
                             .headline3

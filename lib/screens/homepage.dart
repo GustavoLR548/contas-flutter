@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/models/conta.dart';
 import 'package:todo/provider/contas.dart';
 import 'package:todo/widget/contaEditor.dart';
+import 'package:todo/widget/drawer/drawer.dart';
 import 'package:todo/widget/homepage/contaCard.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +15,26 @@ class HomePage extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    final allTodos = Provider.of<Contas>(context).items;
+    final contasProvider = Provider.of<Contas>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo'),
+        title: const Text('Contas'),
       ),
-      body: allTodos.length == 0 ? _noTodos() : _showTodos(allTodos),
+      drawer: AppDrawer(),
+      body: FutureBuilder(
+          future: contasProvider.fetchData(),
+          builder: (ctx, result) {
+            if (result.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final contasItems = contasProvider.items;
+            if (contasItems.length == 0) {
+              return _noContas(context);
+            }
+            return _showContas(contasItems);
+          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () => _createTodo(context),
@@ -28,16 +43,20 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _noTodos() {
+  _noContas(BuildContext context) {
     return Center(
-        child: Text('Você não tem nenhuma conta\nAdicione alguma :-)'));
+        child: Text(
+      'Você não tem nenhuma conta\nAdicione alguma :-)',
+      style: Theme.of(context).textTheme.headline1,
+      textAlign: TextAlign.center,
+    ));
   }
 
-  _showTodos(List<Conta> allTodos) {
+  _showContas(List<Conta> allContas) {
     return ListView.builder(
-      itemCount: allTodos.length,
+      itemCount: allContas.length,
       itemBuilder: (ctx, index) =>
-          TodoCard(allTodos[index].targetTimeDay, allTodos[index].title),
+          ContaCard(allContas[index].targetTimeDay, allContas[index].title),
     );
   }
 }

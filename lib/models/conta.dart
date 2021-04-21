@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class Conta with ChangeNotifier {
   final String _creationDate;
-  final String _creatorId;
+  final int _creatorId;
   final String _targetTime;
   final String _title;
   final IconData _icon;
@@ -31,7 +31,7 @@ class Conta with ChangeNotifier {
     return DateFormat("dd/MM/yyyy - HH:mm").format(date);
   }
 
-  String get creatorId {
+  int get creatorId {
     return _creatorId;
   }
 

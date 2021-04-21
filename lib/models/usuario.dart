@@ -2,7 +2,7 @@ class Usuario {
   String _name;
   String _email;
   String _password;
-  String _id;
+  int _id;
   String _expiryToken;
 
   Usuario(this._name, this._email, this._password, this._id, this._expiryToken);
@@ -19,12 +19,17 @@ class Usuario {
     return _password;
   }
 
-  String get id {
+  int get id {
     return _id;
   }
 
   String get getExpiryToken {
+    if (_expiryToken == null) return DateTime.now().toIso8601String();
     return _expiryToken;
+  }
+
+  set setId(int id) {
+    _id = id;
   }
 
   set setExpiryToken(String token) {

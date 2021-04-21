@@ -4,7 +4,7 @@ import 'package:todo/helper/sql.dart';
 import 'package:todo/models/conta.dart';
 
 class Contas with ChangeNotifier {
-  String currUserId;
+  int currUserId;
 
   final tableName = 'contas';
 
@@ -33,7 +33,7 @@ class Contas with ChangeNotifier {
         targetTime, title, description, icon);
     _items.add(newConta);
 
-    await SQLDatabase.insert(tableName, {
+    SQLDatabase.insert(tableName, {
       'id': newConta.id,
       'creator_id': currUserId,
       'target_time': targetTime,
@@ -52,7 +52,6 @@ class Contas with ChangeNotifier {
     _items[contaIndex] = c;
     notifyListeners();
     SQLDatabase.insert(tableName, {
-      'id': c.id,
       'creator_id': currUserId,
       'target_time': c.targetTime,
       'title': c.title,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TodoCard extends StatelessWidget {
+class ContaCard extends StatelessWidget {
   final String _todoTargetDay;
   final String _todoTitle;
 
-  const TodoCard(this._todoTargetDay, this._todoTitle);
+  const ContaCard(this._todoTargetDay, this._todoTitle);
 
   @override
   Widget build(BuildContext context) {

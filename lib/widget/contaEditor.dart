@@ -19,19 +19,23 @@ class _ContaEditorState extends State<ContaEditor> {
   final int _maxDescriptionLength = 50;
 
   final List<IconData> _possibleIcons = [
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit,
-    Icons.ac_unit
+    Icons.account_balance,
+    Icons.agriculture,
+    Icons.airplanemode_active,
+    Icons.airport_shuttle,
+    Icons.anchor,
+    Icons.apartment,
+    Icons.article,
+    Icons.assignment_ind,
+    Icons.attach_money,
+    Icons.audiotrack,
+    Icons.auto_stories,
+    Icons.book,
   ];
 
   void initState() {
     _formData = {'Title': '', 'Description': '', 'targetTime': ''};
-    _contaIcon = Icons.ac_unit;
+    _contaIcon = Icons.account_balance;
     super.initState();
   }
 
@@ -145,10 +149,10 @@ class _ContaEditorState extends State<ContaEditor> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'The \'Description\' shouldn\'t be empty';
+                  return 'A \'descrição\' não deveria ser vazia';
                 } else if (value.length < _minDescriptionLength ||
                     value.length > _maxDescriptionLength) {
-                  return 'The \'Description\' should be between $_minDescriptionLength and $_maxDescriptionLength characters long';
+                  return 'A \'descrição\' deveria ser no mínimo entre $_minDescriptionLength e $_maxDescriptionLength carateres de comprimento';
                 }
                 return null;
               },
@@ -168,7 +172,8 @@ class _ContaEditorState extends State<ContaEditor> {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: _saveTodo, child: Text('Save \'Todo\'')),
+            ElevatedButton(
+                onPressed: _saveTodo, child: Text('Salvar \'Conta\'')),
           ],
         ),
       ),

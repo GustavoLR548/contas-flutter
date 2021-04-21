@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/provider/auth.dart';
 import 'package:todo/provider/theme_changer.dart';
+import 'package:todo/screens/configuration.dart';
 import 'package:todo/screens/homepage.dart';
 import 'package:todo/screens/login_signup.dart';
 import 'package:todo/screens/splash_screen.dart';
@@ -24,8 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       ChangeNotifierProxyProvider<AuthProvider, Contas>(
         create: (ctx) => Contas(),
-        update: (ctx, authData, previousContas) =>
-            Contas.loggedIn(authData.currUser.id),
+        update: (ctx, authData, previousContas) => Contas.loggedIn(authData.id),
       )
     ], child: MyMaterialApp());
   }
@@ -54,6 +54,10 @@ class MyMaterialApp extends StatelessWidget {
                           ? SplashScreen()
                           : AuthScreen(),
                 ),
+          routes: {
+            HomePage.routeName: (ctx) => HomePage(),
+            Configuration.routeName: (ctx) => Configuration()
+          },
         );
       },
     );

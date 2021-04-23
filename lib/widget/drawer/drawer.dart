@@ -5,63 +5,74 @@ import 'package:todo/provider/theme_changer.dart';
 import 'package:todo/screens/configuration.dart';
 
 class AppDrawer extends StatelessWidget {
-  List<Widget> buildDividedListTile(
-      BuildContext context, IconData icon, String text, Function f) {
-    final currTheme = Provider.of<ThemeChanger>(context).currTheme;
-    return [
-      Divider(),
-      ListTile(
-          leading: Icon(icon,
-              color:
-                  currTheme == ThemeType.light ? Colors.black : Colors.white),
-          title: Text(
-            text,
-            style: Theme.of(context).textTheme.headline1,
-          ),
-          onTap: f)
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-        child: Column(
-      children: <Widget>[
-        AppBar(
-          title: Text(
-            'Educa',
-            style: Theme.of(context)
-                .textTheme
-                .headline3
-                .copyWith(color: Colors.white),
-          ),
-          automaticallyImplyLeading: false,
-        ),
-        ...buildDividedListTile(
-          context,
-          Icons.settings,
-          'Configurações',
-          () => Navigator.of(context).pushNamed(Configuration.routeName),
-        ),
-        Divider(),
-        ListTile(
-            leading: Icon(
-              Icons.exit_to_app,
-              color: Colors.red,
-            ),
-            title: Text(
-              'Logout',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(color: Colors.red),
-            ),
-            onTap: () {
-              Provider.of<ThemeChanger>(context, listen: false)
-                  .setTheme(ThemeType.light);
-              Provider.of<AuthProvider>(context, listen: false).logout();
-            })
-      ],
-    ));
+    final currTheme = Provider.of<ThemeChanger>(context).currTheme;
+    final user = Provider.of<AuthProvider>(context).currUser;
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+          topRight: const Radius.circular(35),
+          bottomRight: const Radius.circular(35)),
+      child: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: currTheme == ThemeType.light
+                        ? Colors.blue[100]
+                        : Colors.purpleAccent[900],
+                    radius: 40,
+                    child: Text(
+                      user.initials,
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    user.name,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  Text(user.email)
+                ],
+              ),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor)),
+          ListTile(
+              leading: Icon(Icons.settings,
+                  color: currTheme == ThemeType.light
+                      ? Colors.black
+                      : Colors.white),
+              title: Text(
+                'Configurações',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              onTap: () =>
+                  Navigator.of(context).pushNamed(Configuration.routeName)),
+          ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.red,
+              ),
+              title: Text(
+                'Logout',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    .copyWith(color: Colors.red),
+              ),
+              onTap: () {
+                Provider.of<ThemeChanger>(context, listen: false)
+                    .setTheme(ThemeType.light);
+                Provider.of<AuthProvider>(context, listen: false).logout();
+              })
+        ],
+      )),
+    );
   }
 }

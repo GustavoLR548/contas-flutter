@@ -40,8 +40,8 @@ class Usuario {
     String result = '';
     var split = _name.split(' ');
 
-    int length = split.length >= 3 ? split.length : 3;
-    for (int i = 0; i < length; i++) result += split[0][0];
+    int length = split.length >= 3 ? 3 : split.length;
+    for (int i = 0; i < length; i++) result += split[i][0];
 
     return result;
   }

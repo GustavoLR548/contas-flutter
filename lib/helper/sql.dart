@@ -15,7 +15,9 @@ class SQLDatabase {
       version++;
       await db.execute('CREATE TABLE contas(' +
           'id INTEGER PRIMARY KEY,' +
+          'creation_date TEXT,' +
           'creator_id INTEGER,' +
+          'value REAL,' +
           'target_time TEXT,' +
           'title TEXT,' +
           'description TEXT,' +
@@ -34,8 +36,8 @@ class SQLDatabase {
     return sqlDb.query(table);
   }
 
-  static Future<void> delete(String table, String id) async {
+  static Future<int> delete(String table, int id) async {
     final sqlDb = await SQLDatabase.database;
-    sqlDb.delete(table, where: 'id=?', whereArgs: [id]);
+    return await sqlDb.delete(table, where: 'id=?', whereArgs: [id]);
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/provider/auth.dart';
 import 'package:todo/provider/theme_changer.dart';
 import 'package:todo/screens/configuration.dart';
+import 'package:todo/screens/conta_page.dart';
 import 'package:todo/screens/homepage.dart';
 import 'package:todo/screens/login_signup.dart';
 import 'package:todo/screens/splash_screen.dart';
@@ -43,6 +45,8 @@ class MyMaterialApp extends StatelessWidget {
     return Consumer<AuthProvider>(
       builder: (ctx, authData, _) {
         return MaterialApp(
+          localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+          supportedLocales: [const Locale('en'), const Locale('pt')],
           title: 'Flutter Demo',
           theme: theme.themeData,
           home: authData.isAuth
@@ -56,7 +60,8 @@ class MyMaterialApp extends StatelessWidget {
                 ),
           routes: {
             HomePage.routeName: (ctx) => HomePage(),
-            Configuration.routeName: (ctx) => Configuration()
+            Configuration.routeName: (ctx) => Configuration(),
+            ContaPage.routeName: (ctx) => ContaPage()
           },
         );
       },

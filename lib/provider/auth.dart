@@ -28,6 +28,10 @@ class AuthProvider with ChangeNotifier {
     return currUserId;
   }
 
+  Usuario get currUser {
+    return _allUsers[currUserId - 1];
+  }
+
   Future<void> _fetchUsers() async {
     final datalist = await SQLDatabase.read('users');
     if (datalist.length == 0) return false;

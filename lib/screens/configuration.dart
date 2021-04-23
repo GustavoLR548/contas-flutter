@@ -10,6 +10,18 @@ class Configuration extends StatefulWidget {
 
 class _ConfigurationState extends State<Configuration> {
   bool isLightMode = true;
+  bool hasInitiated = false;
+
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!hasInitiated) {
+      isLightMode =
+          Provider.of<ThemeChanger>(context).currTheme == ThemeType.light
+              ? true
+              : false;
+      hasInitiated = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +38,12 @@ class _ConfigurationState extends State<Configuration> {
               title: Text(
                 isLightMode ? 'Tema branco' : 'Tema preto',
                 style: Theme.of(context).textTheme.headline1,
+              ),
+              secondary: Icon(
+                isLightMode
+                    ? Icons.brightness_4_rounded
+                    : Icons.brightness_4_outlined,
+                color: isLightMode ? Colors.black : Colors.white,
               ),
               subtitle: Text(
                 'Trocar temática de cor',

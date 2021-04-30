@@ -52,61 +52,54 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  const Color.fromRGBO(69, 129, 230, 1).withOpacity(0.9),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0, 1],
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Container(
-              height: deviceSize.height,
-              width: deviceSize.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 20, top: 20),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 94.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.green,
-                        boxShadow: [
-                          const BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: const Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        'Contas',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(color: Colors.white),
+            color: Theme.of(context).primaryColor,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: deviceSize.height * 0.45,
+                width: deviceSize.width * 0.60,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 65.0),
+                        // ..translate(-10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.green,
+                          boxShadow: [
+                            const BoxShadow(
+                              blurRadius: 8,
+                              color: Colors.black26,
+                              offset: const Offset(0, 2),
+                            )
+                          ],
+                        ),
+                        child: Text(
+                          'Contas',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2
+                              .copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                  AuthForm(_submitAuthForm, _isLoading),
-                ],
+                    Icon(
+                      Icons.all_inbox_outlined,
+                      color: Colors.white,
+                      size: 100,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
+          AuthForm(_submitAuthForm, _isLoading),
         ],
       ),
     );

@@ -117,6 +117,8 @@ class _ContaEditorState extends State<ContaEditor> {
   @override
   Widget build(BuildContext context) {
     final currTheme = Provider.of<ThemeChanger>(context).currTheme;
+    final borderColor =
+        currTheme == ThemeType.light ? Colors.black : Colors.purpleAccent[100];
     return Scaffold(
       appBar: AppBar(
         title:
@@ -141,9 +143,7 @@ class _ContaEditorState extends State<ContaEditor> {
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                  color: currTheme == ThemeType.light
-                                      ? Colors.black
-                                      : Colors.white,
+                                  color: borderColor,
                                 )),
                                 labelStyle:
                                     Theme.of(context).textTheme.bodyText2,
@@ -168,9 +168,7 @@ class _ContaEditorState extends State<ContaEditor> {
                                       value: value,
                                       child: Icon(
                                         value,
-                                        color: currTheme == ThemeType.light
-                                            ? Colors.black
-                                            : Colors.white,
+                                        color: borderColor,
                                       ));
                                 }).toList(),
                               ),
@@ -189,10 +187,8 @@ class _ContaEditorState extends State<ContaEditor> {
                         maxLength: 20,
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: currTheme == ThemeType.light
-                                      ? Colors.black
-                                      : Colors.white)),
+                              borderSide: BorderSide(color: borderColor)),
+                          counterStyle: Theme.of(context).textTheme.bodyText1,
                           labelText: 'Título',
                           labelStyle: Theme.of(context).textTheme.bodyText2,
                         ),
@@ -202,9 +198,9 @@ class _ContaEditorState extends State<ContaEditor> {
                         },
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'The \'Title\' shouldn\'t be empty';
+                            return 'O \'Título\' não deveria estar vazio';
                           } else if (value.length < _minTitleLength) {
-                            return 'The \'Title\' should at least $_minTitleLength characters long';
+                            return 'O \'Título\' não deveria ter no mínimo $_minTitleLength caracteres ';
                           }
                           return null;
                         },
@@ -219,11 +215,9 @@ class _ContaEditorState extends State<ContaEditor> {
                   initialValue: _formData['Description'],
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: currTheme == ThemeType.light
-                                  ? Colors.black
-                                  : Colors.white)),
+                          borderSide: BorderSide(color: borderColor)),
                       labelText: 'Descrição',
+                      counterStyle: Theme.of(context).textTheme.bodyText1,
                       labelStyle: Theme.of(context).textTheme.bodyText2),
                   maxLength: 50,
                   keyboardType: TextInputType.name,
@@ -246,10 +240,7 @@ class _ContaEditorState extends State<ContaEditor> {
                   initialValue: _formData['value'],
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: currTheme == ThemeType.light
-                                ? Colors.black
-                                : Colors.white)),
+                        borderSide: BorderSide(color: borderColor)),
                     labelText: 'Valor',
                     labelStyle: Theme.of(context).textTheme.bodyText2,
                     prefix: Text('R\$'),

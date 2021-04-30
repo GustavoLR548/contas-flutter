@@ -23,7 +23,7 @@ class ContaPage extends StatelessWidget {
             Hero(
               tag: id,
               child: Container(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 height: 300,
                 width: double.infinity,
                 child: Icon(
@@ -36,10 +36,8 @@ class ContaPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Text(
-              'R\$' + loadedConta.value.toString(),
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
+            Text('R\$' + loadedConta.value.toString(),
+                style: Theme.of(context).textTheme.headline1),
             const SizedBox(
               height: 10,
             ),

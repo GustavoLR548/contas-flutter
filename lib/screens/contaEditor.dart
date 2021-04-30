@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:todo/models/conta.dart';
 import 'package:todo/provider/contas.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/provider/theme_changer.dart';
 
 class ContaEditor extends StatefulWidget {
   final Conta conta;
@@ -115,6 +116,7 @@ class _ContaEditorState extends State<ContaEditor> {
 
   @override
   Widget build(BuildContext context) {
+    final currTheme = Provider.of<ThemeChanger>(context).currTheme;
     return Scaffold(
       appBar: AppBar(
         title:
@@ -137,6 +139,14 @@ class _ContaEditorState extends State<ContaEditor> {
                         builder: (FormFieldState<IconData> state) {
                           return InputDecorator(
                             decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: currTheme == ThemeType.light
+                                      ? Colors.black
+                                      : Colors.white,
+                                )),
+                                labelStyle:
+                                    Theme.of(context).textTheme.bodyText2,
                                 errorStyle: TextStyle(
                                     color: Colors.redAccent, fontSize: 16.0),
                                 hintText: 'Selecione um icone para essa conta',
@@ -155,7 +165,13 @@ class _ContaEditorState extends State<ContaEditor> {
                                 },
                                 items: _possibleIcons.map((value) {
                                   return DropdownMenuItem<IconData>(
-                                      value: value, child: Icon(value));
+                                      value: value,
+                                      child: Icon(
+                                        value,
+                                        color: currTheme == ThemeType.light
+                                            ? Colors.black
+                                            : Colors.white,
+                                      ));
                                 }).toList(),
                               ),
                             ),
@@ -170,8 +186,16 @@ class _ContaEditorState extends State<ContaEditor> {
                       flex: 2,
                       child: TextFormField(
                         initialValue: _formData['Title'],
-                        maxLength: 15,
-                        decoration: InputDecoration(labelText: 'Título'),
+                        maxLength: 20,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: currTheme == ThemeType.light
+                                      ? Colors.black
+                                      : Colors.white)),
+                          labelText: 'Título',
+                          labelStyle: Theme.of(context).textTheme.bodyText2,
+                        ),
                         keyboardType: TextInputType.name,
                         onSaved: (value) {
                           _formData['Title'] = value.trim();
@@ -193,7 +217,14 @@ class _ContaEditorState extends State<ContaEditor> {
                 ),
                 TextFormField(
                   initialValue: _formData['Description'],
-                  decoration: InputDecoration(labelText: 'Descrição'),
+                  decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: currTheme == ThemeType.light
+                                  ? Colors.black
+                                  : Colors.white)),
+                      labelText: 'Descrição',
+                      labelStyle: Theme.of(context).textTheme.bodyText2),
                   maxLength: 50,
                   keyboardType: TextInputType.name,
                   onSaved: (value) {
@@ -213,8 +244,17 @@ class _ContaEditorState extends State<ContaEditor> {
                 ),
                 TextFormField(
                   initialValue: _formData['value'],
-                  decoration:
-                      InputDecoration(labelText: 'Valor', prefix: Text('R\$')),
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: currTheme == ThemeType.light
+                                ? Colors.black
+                                : Colors.white)),
+                    labelText: 'Valor',
+                    labelStyle: Theme.of(context).textTheme.bodyText2,
+                    prefix: Text('R\$'),
+                    prefixStyle: Theme.of(context).textTheme.bodyText1,
+                  ),
                   keyboardType: TextInputType.number,
                   onSaved: (value) {
                     _formData['value'] = value.trim();

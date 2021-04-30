@@ -47,7 +47,7 @@ class MyMaterialApp extends StatelessWidget {
         return MaterialApp(
           localizationsDelegates: [GlobalMaterialLocalizations.delegate],
           supportedLocales: [const Locale('en'), const Locale('pt')],
-          title: 'Flutter Demo',
+          title: 'Contas app',
           theme: theme.themeData,
           home: authData.isAuth
               ? HomePage()

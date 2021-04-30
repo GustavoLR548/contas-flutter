@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo/models/conta.dart';
 import 'package:todo/provider/contas.dart';
 import 'package:todo/screens/contaEditor.dart';
 import 'package:todo/widget/drawer/drawer.dart';

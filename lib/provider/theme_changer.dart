@@ -23,9 +23,8 @@ class ThemeChanger with ChangeNotifier {
 
   _setThemesDatas() {
     _lightThemeData = ThemeData(
-      primarySwatch: Colors.blue,
-      canvasColor: Color(0xFFbbd6ff),
-      accentColor: Colors.deepPurple,
+      primarySwatch: Colors.green,
+      accentColor: Colors.yellow,
       accentColorBrightness: Brightness.dark,
       textTheme: ThemeData.light().textTheme.copyWith(
           headline1: TextStyle(

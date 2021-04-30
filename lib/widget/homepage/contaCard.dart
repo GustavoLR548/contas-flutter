@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todo/models/conta.dart';
 import 'package:todo/provider/contas.dart';
+import 'package:todo/provider/theme_changer.dart';
 import 'package:todo/screens/conta_page.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class ContaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currTheme = Provider.of<ThemeChanger>(context).currTheme;
+
     return SlideTransition(
       position: Tween<Offset>(begin: const Offset(-1, 0), end: Offset(0, 0))
           .animate(_animation),
@@ -22,7 +25,9 @@ class ContaCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           child: Container(
             height: 70,
-            color: Colors.white,
+            color: currTheme == ThemeType.light
+                ? Colors.lightGreenAccent[100]
+                : Color(0xFF000d25),
             child: Row(
               children: [
                 GestureDetector(
@@ -39,13 +44,13 @@ class ContaCard extends StatelessWidget {
                     child: Hero(
                       tag: _conta.id,
                       child: Container(
-                        color: Colors.blue,
+                        color: Theme.of(context).primaryColor,
                         width: 70,
                         height: 70,
                         child: Icon(_conta.icon, color: Colors.white),
                       ),
                     )),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +72,8 @@ class ContaCard extends StatelessWidget {
                           .remove(_conta.id);
                     },
                     child: Icon(
-                      Icons.check_box_outline_blank,
+                      Icons.delete,
+                      color: Colors.red,
                     ),
                   ),
                 )

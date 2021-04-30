@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: currTheme == ThemeType.light
-                        ? Colors.blue[100]
+                        ? Colors.yellowAccent[100]
                         : Colors.purpleAccent[900],
                     radius: 40,
                     child: Text(

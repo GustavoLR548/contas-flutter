@@ -1,4 +1,4 @@
-# Lista de coisas a serem pagas em Flutter
+# Lista de contais mensais a serem pagas em Flutter
 
 ![escudo](https://img.shields.io/badge/build-passing-brightgreen)
 

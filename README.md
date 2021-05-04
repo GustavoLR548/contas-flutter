@@ -15,5 +15,4 @@ Um programa feito para armazenar lista de coisas a serem pagas pelo usuário
 ## Objetivos opcionais
 
 - [x] Animações
-- [ ] Arquivar Contas
 

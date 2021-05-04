@@ -26,8 +26,16 @@ class _AuthScreenState extends State<AuthScreen> {
         showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-                  title: Text('Um erro ocorreu ao fazer login'),
-                  content: Text('teste'),
+                  title: Text(
+                    'Erro ao fazer login',
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Text(
+                      'Por favor, confira se o email e/ou a senha está correta'),
+                  elevation: 24,
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
                 ));
       }
     } else {
@@ -38,8 +46,16 @@ class _AuthScreenState extends State<AuthScreen> {
         showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-                  title: Text('Um erro ocorreu ao fazer registro'),
-                  content: Text('teste'),
+                  title: Text(
+                    'Erro ao fazer o cadastro',
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Text('Uma conta com esse email já existe!'),
+                  elevation: 24,
+                  backgroundColor: Colors.redAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          const BorderRadius.all(const Radius.circular(15))),
                 ));
       }
     }

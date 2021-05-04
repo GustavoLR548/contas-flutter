@@ -24,7 +24,7 @@ class ThemeChanger with ChangeNotifier {
   _setThemesDatas() {
     _lightThemeData = ThemeData(
       primarySwatch: Colors.green,
-      accentColor: Colors.yellow,
+      accentColor: Colors.limeAccent[700],
       accentColorBrightness: Brightness.dark,
       textTheme: ThemeData.light().textTheme.copyWith(
           headline1: TextStyle(

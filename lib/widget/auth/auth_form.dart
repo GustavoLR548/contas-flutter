@@ -35,14 +35,7 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
-    if (!isValid && !_isLogin) {
-      String errorMessageContent = 'Credencias de usuário inválida';
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(errorMessageContent),
-        backgroundColor: Theme.of(context).errorColor,
-      ));
-      return;
-    }
+    if (!isValid) return;
 
     _formKey.currentState.save();
     widget._submitData(_formValues['email'].trim(), _confirmPass.text.trim(),

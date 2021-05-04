@@ -29,7 +29,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Usuario get currUser {
-    return _allUsers[currUserId - 1];
+    return _allUsers.firstWhere((element) => element.id == currUserId);
   }
 
   Future<void> _fetchUsers() async {
@@ -79,7 +79,7 @@ class AuthProvider with ChangeNotifier {
     int id = await SQLDatabase.insert(
         tableName, {'name': username, 'email': email, 'password': password});
 
-    newUser.setId = id;
+    newUser.id = id;
     _allUsers.add(newUser);
 
     currUserId = id;

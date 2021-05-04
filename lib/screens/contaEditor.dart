@@ -265,11 +265,15 @@ class _ContaEditorState extends State<ContaEditor> {
                 Container(
                   height: 70,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: Text(_formData['targetTime'] == ''
-                            ? 'Nenhuma data selecionada'
-                            : 'Data selecionada : ' + _selectedDateInText()),
+                        child: Text(
+                          _formData['targetTime'] == ''
+                              ? 'Nenhuma data selecionada'
+                              : 'Data selecionada : ' + _selectedDateInText(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       TextButton(
                           onPressed: () => _chooseDate(context),

@@ -67,6 +67,7 @@ class ContaPage extends StatelessWidget {
 
   Widget _buildPopMenuButton(BuildContext context, Conta c) {
     return PopupMenuButton(
+      color: Theme.of(context).accentColor,
       onSelected: (String value) {
         if (value == 'edit') {
           Navigator.of(context).push(MaterialPageRoute<void>(

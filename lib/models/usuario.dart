@@ -28,12 +28,12 @@ class Usuario {
     return _expiryToken;
   }
 
-  set setId(int id) {
-    _id = id;
+  set id(int id) {
+    this._id = id;
   }
 
-  set setExpiryToken(String token) {
-    _expiryToken = token;
+  set expiryToken(String token) {
+    this._expiryToken = token;
   }
 
   String get initials {
